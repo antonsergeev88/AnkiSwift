@@ -134,4 +134,26 @@ final class AnkiTests: XCTestCase {
         XCTAssertEqual(true, success)
         try networkClient.checkRequest(request)
     }
+
+    func testUnsuspend() async throws {
+        let request = """
+            {
+                "action": "unsuspend",
+                "version": 6,
+                "params": {
+                    "cards": [1483959291685, 1483959293217]
+                }
+            }
+            """
+        let response = """
+            {
+                "result": true,
+                "error": null
+            }
+            """
+        networkClient.response = response
+        let success = try await anki.unsuspend(cards: [1483959291685, 1483959293217])
+        XCTAssertEqual(true, success)
+        try networkClient.checkRequest(request)
+    }
 }
