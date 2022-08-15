@@ -87,4 +87,29 @@ final class AnkiTests: XCTestCase {
         XCTAssertEqual([true, true], success)
         try networkClient.checkRequest(request)
     }
+
+    func testSetSpecificValueOfCard() async throws {
+        let request = """
+            {
+                "action": "setSpecificValueOfCard",
+                "version": 6,
+                "params": {
+                    "card": 1483959291685,
+                    "keys": ["flags", "odue"],
+                    "newValues": ["1", "-100"],
+                    "warning_check": false
+                }
+            }
+            """
+        let response = """
+            {
+                "result": [true, true],
+                "error": null
+            }
+            """
+        networkClient.response = response
+        let success = try await anki.setSpecificValueOfCard(card: 1483959291685, values: [.flags(1), .odue(-100)])
+        XCTAssertEqual([true, true], success)
+        try networkClient.checkRequest(request)
+    }
 }

@@ -1,6 +1,8 @@
 import AnkiSwift
 import Foundation
 
+struct CheckRequestError: Error {}
+
 class NetworkClient: AnkiNetworkClient {
     var request = Data()
     var response = String()
@@ -15,7 +17,7 @@ class NetworkClient: AnkiNetworkClient {
         let json = try JSONSerialization.jsonObject(with: request) as! NSDictionary
         let testJSON = try JSONSerialization.jsonObject(with: testRequest) as! NSDictionary
         guard json.isEqual(to: testJSON) else {
-            throw NSError()
+            throw CheckRequestError()
         }
     }
 }
