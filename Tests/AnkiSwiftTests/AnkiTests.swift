@@ -64,4 +64,27 @@ final class AnkiTests: XCTestCase {
         XCTAssertEqual(easeFactors, [4100, 3900])
         try networkClient.checkRequest(request)
     }
+
+    func testSetEaseFactors() async throws {
+        let request = """
+            {
+                "action": "setEaseFactors",
+                "version": 6,
+                "params": {
+                    "cards": [1483959291685, 1483959293217],
+                    "easeFactors": [4100, 3900]
+                }
+            }
+            """
+        let response = """
+            {
+                "result": [true, true],
+                "error": null
+            }
+            """
+        networkClient.response = response
+        let success = try await anki.setEaseFactors(cards: [1483959291685, 1483959293217], easeFactors: [4100, 3900])
+        XCTAssertEqual([true, true], success)
+        try networkClient.checkRequest(request)
+    }
 }
