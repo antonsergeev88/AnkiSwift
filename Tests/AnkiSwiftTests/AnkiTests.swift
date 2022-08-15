@@ -200,4 +200,26 @@ final class AnkiTests: XCTestCase {
         XCTAssertEqual([false, true, nil], success)
         try networkClient.checkRequest(request)
     }
+
+    func testAreDue() async throws {
+        let request = """
+            {
+                "action": "areDue",
+                "version": 6,
+                "params": {
+                    "cards": [1483959291685, 1483959293217]
+                }
+            }
+            """
+        let response = """
+            {
+                "result": [false, true],
+                "error": null
+            }
+            """
+        networkClient.response = response
+        let success = try await anki.areDue(cards: [1483959291685, 1483959293217])
+        XCTAssertEqual([false, true], success)
+        try networkClient.checkRequest(request)
+    }
 }
