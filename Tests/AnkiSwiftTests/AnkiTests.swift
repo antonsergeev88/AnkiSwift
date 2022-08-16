@@ -222,4 +222,55 @@ final class AnkiTests: XCTestCase {
         XCTAssertEqual([false, true], success)
         try networkClient.checkRequest(request)
     }
+
+    func testGetIntervals() async throws {
+        let request = """
+            {
+                "action": "getIntervals",
+                "version": 6,
+                "params": {
+                    "cards": [1502298033753, 1502298036657]
+                }
+            }
+            """
+        let response = """
+            {
+                "result": [-14400, 3],
+                "error": null
+            }
+            """
+        networkClient.response = response
+        let intervals = try await anki.getIntervals(cards: [1502298033753, 1502298036657])
+        XCTAssertEqual([-14400, 3], intervals)
+        try networkClient.checkRequest(request)
+    }
+
+    func testGetIntervalsComplete() async throws {
+        let request = """
+            {
+                "action": "getIntervals",
+                "version": 6,
+                "params": {
+                    "cards": [1502298033753, 1502298036657],
+                    "complete": true
+                }
+            }
+            """
+        let response = """
+            {
+                "result": [
+                    [-120, -180, -240, -300, -360, -14400],
+                    [-120, -180, -240, -300, -360, -14400, 1, 3]
+                ],
+                "error": null
+            }
+            """
+        networkClient.response = response
+        let intervals = try await anki.getIntervalsComplete(cards: [1502298033753, 1502298036657])
+        XCTAssertEqual([
+            [-120, -180, -240, -300, -360, -14400],
+            [-120, -180, -240, -300, -360, -14400, 1, 3],
+        ], intervals)
+        try networkClient.checkRequest(request)
+    }
 }

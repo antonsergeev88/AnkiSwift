@@ -5,7 +5,7 @@ public struct EaseFactor: RawRepresentable, ExpressibleByIntegerLiteral, Equatab
         self.rawValue = rawValue
     }
 
-    public init(integerLiteral value: IntegerLiteralType) {
+    public init(integerLiteral value: Int) {
         self.init(rawValue: value)
     }
 }

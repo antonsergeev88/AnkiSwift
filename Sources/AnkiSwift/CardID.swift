@@ -5,7 +5,7 @@ public struct CardID: RawRepresentable, ExpressibleByIntegerLiteral, Equatable, 
         self.rawValue = rawValue
     }
 
-    public init(integerLiteral value: IntegerLiteralType) {
+    public init(integerLiteral value: Int) {
         self.init(rawValue: value)
     }
 }
