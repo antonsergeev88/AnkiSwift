@@ -295,4 +295,26 @@ final class AnkiTests: XCTestCase {
         XCTAssertEqual([1494723142483, 1494703460437, 1494703479525], cards)
         try networkClient.checkRequest(request)
     }
+
+    func testCardsToNotes() async throws {
+        let request = """
+            {
+                "action": "cardsToNotes",
+                "version": 6,
+                "params": {
+                    "cards": [1502098034045, 1502098034048, 1502298033753]
+                }
+            }
+            """
+        let response = """
+            {
+                "result": [1502098029797, 1502298025183],
+                "error": null
+            }
+            """
+        networkClient.response = response
+        let notes = try await anki.cardsToNotes(cards: [1502098034045, 1502098034048, 1502298033753])
+        XCTAssertEqual([1502098029797, 1502298025183], notes)
+        try networkClient.checkRequest(request)
+    }
 }
