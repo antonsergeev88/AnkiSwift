@@ -317,4 +317,32 @@ final class AnkiTests: XCTestCase {
         XCTAssertEqual([1502098029797, 1502298025183], notes)
         try networkClient.checkRequest(request)
     }
+
+    func testCardsModTime() async throws {
+        let request = """
+            {
+                "action": "cardsModTime",
+                "version": 6,
+                "params": {
+                    "cards": [1498938915662, 1502098034048]
+                }
+            }
+            """
+        let response = """
+            {
+                "result": [
+                    {
+                        "cardId": 1498938915662,
+                        "mod": 1629454092
+                    }
+                ],
+                "error": null
+            }
+            """
+        networkClient.response = response
+        let result = try await anki.cardsModTime(cards: [1498938915662, 1502098034048])
+        XCTAssertEqual([1498938915662], result.map(\.cardId))
+        XCTAssertEqual([1629454092], result.map(\.mod))
+        try networkClient.checkRequest(request)
+    }
 }
