@@ -273,4 +273,26 @@ final class AnkiTests: XCTestCase {
         ], intervals)
         try networkClient.checkRequest(request)
     }
+
+    func testFindCards() async throws {
+        let request = """
+            {
+                "action": "findCards",
+                "version": 6,
+                "params": {
+                    "query": "deck:current"
+                }
+            }
+            """
+        let response = """
+            {
+                "result": [1494723142483, 1494703460437, 1494703479525],
+                "error": null
+            }
+            """
+        networkClient.response = response
+        let cards = try await anki.findCards(query: "deck:current")
+        XCTAssertEqual([1494723142483, 1494703460437, 1494703479525], cards)
+        try networkClient.checkRequest(request)
+    }
 }
