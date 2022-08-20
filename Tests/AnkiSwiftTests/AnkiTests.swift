@@ -345,4 +345,52 @@ final class AnkiTests: XCTestCase {
         XCTAssertEqual([1629454092], result.map(\.mod))
         try networkClient.checkRequest(request)
     }
+
+    func testCardsInfo() async throws {
+        let request = """
+            {
+                "action": "cardsInfo",
+                "version": 6,
+                "params": {
+                    "cards": [1498938915662, 1502098034048]
+                }
+            }
+            """
+        let response = """
+            {
+                "result": [
+                    {
+                        "answer": "back content",
+                        "question": "front content",
+                        "deckName": "Default",
+                        "modelName": "Basic",
+                        "fieldOrder": 1,
+                        "fields": {
+                            "Front": {"value": "front content", "order": 0},
+                            "Back": {"value": "back content", "order": 1}
+                        },
+                        "css":"p {font-family:Arial;}",
+                        "cardId": 1498938915662,
+                        "interval": 16,
+                        "factor": 0,
+                        "note":1502298033753,
+                        "ord": 1,
+                        "type": 0,
+                        "queue": 0,
+                        "due": 1,
+                        "reps": 1,
+                        "lapses": 0,
+                        "left": 6,
+                        "mod": 1629454092
+                    }
+                ],
+                "error": null
+            }
+            """
+        networkClient.response = response
+        let result = try await anki.cardsInfo(cards: [1498938915662, 1502098034048])
+        XCTAssertEqual("back content", result.first?.answer)
+        XCTAssertEqual(1629454092, result.first?.mod)
+        try networkClient.checkRequest(request)
+    }
 }
