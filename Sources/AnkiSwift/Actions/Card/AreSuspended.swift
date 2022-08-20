@@ -11,6 +11,6 @@ enum AreSuspended: AnkiAction {
 
 extension Anki {
     public func areSuspended(cards: [CardID]) async throws -> [Bool?] {
-        try await networkClient.perform(AreSuspended.self, params: .init(cards: cards))
+        try await perform(AreSuspended.self, params: .init(cards: cards))
     }
 }

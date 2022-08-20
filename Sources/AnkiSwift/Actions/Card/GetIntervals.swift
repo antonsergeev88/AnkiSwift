@@ -15,7 +15,7 @@ extension GetIntervals {
 
 extension Anki {
     public func getIntervals(cards: [CardID]) async throws -> [Interval] {
-        try await networkClient.perform(GetIntervals.Incomplete.self, params: .init(cards: cards))
+        try await perform(GetIntervals.Incomplete.self, params: .init(cards: cards))
     }
 }
 
@@ -35,6 +35,6 @@ extension GetIntervals {
 
 extension Anki {
     public func getIntervalsComplete(cards: [CardID]) async throws -> [[Interval]] {
-        try await networkClient.perform(GetIntervals.Complete.self, params: .init(cards: cards))
+        try await perform(GetIntervals.Complete.self, params: .init(cards: cards))
     }
 }

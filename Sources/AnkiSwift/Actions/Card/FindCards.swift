@@ -11,6 +11,6 @@ enum FindCards: AnkiAction {
 
 extension Anki {
     public func findCards(query: String) async throws -> [CardID] {
-        try await networkClient.perform(FindCards.self, params: .init(query: query))
+        try await perform(FindCards.self, params: .init(query: query))
     }
 }

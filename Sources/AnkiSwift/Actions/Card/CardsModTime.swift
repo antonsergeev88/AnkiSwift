@@ -16,6 +16,6 @@ public struct CardsModTimeResult: Codable {
 
 extension Anki {
     public func cardsModTime(cards: [CardID]) async throws -> [CardsModTimeResult] {
-        try await networkClient.perform(CardsModTime.self, params: .init(cards: cards))
+        try await perform(CardsModTime.self, params: .init(cards: cards))
     }
 }

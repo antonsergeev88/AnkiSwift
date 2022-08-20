@@ -12,6 +12,6 @@ enum SetEaseFactors: AnkiAction {
 
 extension Anki {
     public func setEaseFactors(cards: [CardID], easeFactors: [EaseFactor]) async throws -> [Bool] {
-        try await networkClient.perform(SetEaseFactors.self, params: .init(cards: cards, easeFactors: easeFactors))
+        try await perform(SetEaseFactors.self, params: .init(cards: cards, easeFactors: easeFactors))
     }
 }

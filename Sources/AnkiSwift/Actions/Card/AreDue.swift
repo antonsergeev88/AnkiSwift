@@ -11,6 +11,6 @@ enum AreDue: AnkiAction {
 
 extension Anki {
     public func areDue(cards: [CardID]) async throws -> [Bool] {
-        try await networkClient.perform(AreDue.self, params: .init(cards: cards))
+        try await perform(AreDue.self, params: .init(cards: cards))
     }
 }

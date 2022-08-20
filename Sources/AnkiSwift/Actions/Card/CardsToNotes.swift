@@ -11,6 +11,6 @@ enum CardsToNotes: AnkiAction {
 
 extension Anki {
     public func cardsToNotes(cards: [CardID]) async throws -> [NoteID] {
-        try await networkClient.perform(CardsToNotes.self, params: .init(cards: cards))
+        try await perform(CardsToNotes.self, params: .init(cards: cards))
     }
 }
