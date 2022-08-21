@@ -36,9 +36,10 @@ final class AnkiTests: XCTestCase {
             """
         networkClient.response = response
         do {
-            _ = try await anki.getEaseFactors(cards: [1])
+            _ = try await anki.forgetCards(cards: [1])
+        } catch {
             XCTFail()
-        } catch {}
+        }
     }
 
     // MARK: - Card Actions
@@ -391,6 +392,27 @@ final class AnkiTests: XCTestCase {
         let result = try await anki.cardsInfo(cards: [1498938915662, 1502098034048])
         XCTAssertEqual("back content", result.first?.answer)
         XCTAssertEqual(1629454092, result.first?.mod)
+        try networkClient.checkRequest(request)
+    }
+
+    func testForgetCards() async throws {
+        let request = """
+            {
+                "action": "forgetCards",
+                "version": 6,
+                "params": {
+                    "cards": [1498938915662, 1502098034048]
+                }
+            }
+            """
+        let response = """
+            {
+                "result": null,
+                "error": null
+            }
+            """
+        networkClient.response = response
+        _ = try await anki.forgetCards(cards: [1498938915662, 1502098034048])
         try networkClient.checkRequest(request)
     }
 }

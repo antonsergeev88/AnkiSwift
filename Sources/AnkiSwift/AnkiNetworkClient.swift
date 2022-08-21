@@ -15,13 +15,11 @@ extension AnkiNetworkClient {
         guard let jsonObject = try? JSONSerialization.jsonObject(with: response) as? [String: NSObject] else {
             throw ResponseError(message: "Unexpected response from anki-connect")
         }
-        if let responseResult = jsonObject["result"], responseResult != NSNull() {
-            return try decoder.decode(ActionResultEnvelop<Action.Result>.self, from: response).result
-        } else if let responseError = jsonObject["error"], responseError != NSNull()  {
+        if let responseError = jsonObject["error"], responseError != NSNull()  {
             let error = try decoder.decode(ActionErrorEnvelop.self, from: response).error
             throw ResponseError(message: error)
         } else {
-            throw ResponseError(message: "Empty response from anki-connect")
+            return try decoder.decode(ActionResultEnvelop<Action.Result>.self, from: response).result
         }
     }
 }
