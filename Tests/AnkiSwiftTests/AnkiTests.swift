@@ -458,4 +458,24 @@ final class AnkiTests: XCTestCase {
         XCTAssertEqual(["Default"], deckNames)
         try networkClient.checkRequest(request)
     }
+
+    func testDeckNamesAndIds() async throws {
+        let request = """
+            {
+                "action": "deckNamesAndIds",
+                "version": 6,
+                "params": {}
+            }
+            """
+        let response = """
+            {
+                "result": {"Default": 1},
+                "error": null
+            }
+            """
+        networkClient.response = response
+        let deckNamesAndIds = try await anki.deckNamesAndIds()
+        XCTAssertEqual(["Default": 1], deckNamesAndIds)
+        try networkClient.checkRequest(request)
+    }
 }
