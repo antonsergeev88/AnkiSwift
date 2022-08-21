@@ -436,4 +436,26 @@ final class AnkiTests: XCTestCase {
         _ = try await anki.relearnCards(cards: [1498938915662, 1502098034048])
         try networkClient.checkRequest(request)
     }
+
+    // MARK: - Deck Actions
+
+    func testDeckNames() async throws {
+        let request = """
+            {
+                "action": "deckNames",
+                "version": 6,
+                "params": {}
+            }
+            """
+        let response = """
+            {
+                "result": ["Default"],
+                "error": null
+            }
+            """
+        networkClient.response = response
+        let deckNames = try await anki.deckNames()
+        XCTAssertEqual(["Default"], deckNames)
+        try networkClient.checkRequest(request)
+    }
 }

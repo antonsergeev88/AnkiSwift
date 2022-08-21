@@ -9,7 +9,7 @@ enum CardsModTime: AnkiAction {
     typealias Result = [CardsModTimeResult]
 }
 
-public struct CardsModTimeResult: Codable {
+public struct CardsModTimeResult: Decodable {
     public let cardId: CardID
     public let mod: Int
 }
