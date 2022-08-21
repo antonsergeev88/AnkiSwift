@@ -478,4 +478,30 @@ final class AnkiTests: XCTestCase {
         XCTAssertEqual(["Default": 1], deckNamesAndIds)
         try networkClient.checkRequest(request)
     }
+
+    func testGetDecks() async throws {
+        let request = """
+            {
+                "action": "getDecks",
+                "version": 6,
+                "params": {
+                    "cards": [1502298036657, 1502298033753, 1502032366472]
+                }
+            }
+            """
+        let response = """
+            {
+                "result": {
+                    "Default": [1502032366472],
+                    "Japanese::JLPT N3": [1502298036657, 1502298033753]
+                },
+                "error": null
+            }
+            """
+        networkClient.response = response
+        let decks = try await anki.getDecks(cards: [1502298036657, 1502298033753, 1502032366472])
+        XCTAssertEqual([1502032366472], decks["Default"])
+        XCTAssertEqual([1502298036657, 1502298033753], decks["Japanese::JLPT N3"])
+        try networkClient.checkRequest(request)
+    }
 }
