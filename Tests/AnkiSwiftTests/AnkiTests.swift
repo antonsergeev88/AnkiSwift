@@ -415,4 +415,25 @@ final class AnkiTests: XCTestCase {
         _ = try await anki.forgetCards(cards: [1498938915662, 1502098034048])
         try networkClient.checkRequest(request)
     }
+
+    func testRelearnCards() async throws {
+        let request = """
+            {
+                "action": "relearnCards",
+                "version": 6,
+                "params": {
+                    "cards": [1498938915662, 1502098034048]
+                }
+            }
+            """
+        let response = """
+            {
+                "result": null,
+                "error": null
+            }
+            """
+        networkClient.response = response
+        _ = try await anki.relearnCards(cards: [1498938915662, 1502098034048])
+        try networkClient.checkRequest(request)
+    }
 }

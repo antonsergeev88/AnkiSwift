@@ -9,9 +9,7 @@ enum ForgetCards: AnkiAction {
     typealias Result = ForgetCardsResult
 }
 
-public struct ForgetCardsResult: Decodable {
-    public init(from decoder: Decoder) throws {}
-}
+public struct ForgetCardsResult: Decodable {}
 
 extension Anki {
     public func forgetCards(cards: [CardID]) async throws -> ForgetCardsResult {
