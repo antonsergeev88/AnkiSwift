@@ -526,4 +526,26 @@ final class AnkiTests: XCTestCase {
         XCTAssertEqual(1519323742721, deckId)
         try networkClient.checkRequest(request)
     }
+
+    func testChangeDeck() async throws {
+        let request = """
+            {
+                "action": "changeDeck",
+                "version": 6,
+                "params": {
+                    "cards": [1502098034045, 1502098034048, 1502298033753],
+                    "deck": "Japanese::JLPT N3"
+                }
+            }
+            """
+        let response = """
+            {
+                "result": null,
+                "error": null
+            }
+            """
+        networkClient.response = response
+        _ = try await anki.changeDeck(cards: [1502098034045, 1502098034048, 1502298033753], deck: "Japanese::JLPT N3")
+        try networkClient.checkRequest(request)
+    }
 }
