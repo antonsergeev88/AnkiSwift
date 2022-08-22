@@ -548,4 +548,26 @@ final class AnkiTests: XCTestCase {
         _ = try await anki.changeDeck(cards: [1502098034045, 1502098034048, 1502298033753], deck: "Japanese::JLPT N3")
         try networkClient.checkRequest(request)
     }
+
+    func testDeleteDecks() async throws {
+        let request = """
+            {
+                "action": "deleteDecks",
+                "version": 6,
+                "params": {
+                    "decks": ["Japanese::JLPT N5", "Easy Spanish"],
+                    "cardsToo": true
+                }
+            }
+            """
+        let response = """
+            {
+                "result": null,
+                "error": null
+            }
+            """
+        networkClient.response = response
+        _ = try await anki.deleteDecks(decks: ["Japanese::JLPT N5", "Easy Spanish"])
+        try networkClient.checkRequest(request)
+    }
 }
