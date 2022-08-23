@@ -570,4 +570,29 @@ final class AnkiTests: XCTestCase {
         _ = try await anki.deleteDecks(decks: ["Japanese::JLPT N5", "Easy Spanish"])
         try networkClient.checkRequest(request)
     }
+
+    // here will be the config methods
+
+    func testSetDeckConfigId() async throws {
+        let request = """
+            {
+                "action": "setDeckConfigId",
+                "version": 6,
+                "params": {
+                    "decks": ["Default"],
+                    "configId": 1
+                }
+            }
+            """
+        let response = """
+            {
+                "result": true,
+                "error": null
+            }
+            """
+        networkClient.response = response
+        let success = try await anki.setDeckConfigId(decks: ["Default"], configId: 1)
+        XCTAssertTrue(success)
+        try networkClient.checkRequest(request)
+    }
 }
