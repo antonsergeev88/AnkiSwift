@@ -595,4 +595,27 @@ final class AnkiTests: XCTestCase {
         XCTAssertTrue(success)
         try networkClient.checkRequest(request)
     }
+
+    func testCloneDeckConfigId() async throws {
+        let request = """
+            {
+                "action": "cloneDeckConfigId",
+                "version": 6,
+                "params": {
+                    "name": "Copy of Default",
+                    "cloneFrom": 1
+                }
+            }
+            """
+        let response = """
+            {
+                "result": 1502972374573,
+                "error": null
+            }
+            """
+        networkClient.response = response
+        let configId = try await anki.cloneDeckConfigId(name: "Copy of Default", cloneFrom: 1)
+        XCTAssertEqual(configId, 1502972374573)
+        try networkClient.checkRequest(request)
+    }
 }
