@@ -618,4 +618,26 @@ final class AnkiTests: XCTestCase {
         XCTAssertEqual(configId, 1502972374573)
         try networkClient.checkRequest(request)
     }
+
+    func testRemoveDeckConfigId() async throws {
+        let request = """
+            {
+                "action": "removeDeckConfigId",
+                "version": 6,
+                "params": {
+                    "configId": 1502972374573
+                }
+            }
+            """
+        let response = """
+            {
+                "result": true,
+                "error": null
+            }
+            """
+        networkClient.response = response
+        let success = try await anki.removeDeckConfigId(configId: 1502972374573)
+        XCTAssertTrue(success)
+        try networkClient.checkRequest(request)
+    }
 }
