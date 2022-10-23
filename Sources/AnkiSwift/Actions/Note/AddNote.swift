@@ -27,6 +27,6 @@ enum AddNote: AnkiAction {
 
 extension Anki {
     public func addNote(deck: String, model: String, fields: [String: String], allowDuplicate: Bool, duplicateScope: String = "", duplicateScopeDeckName: String? = nil, duplicateScopeCheckChildren: Bool = false, duplicateScopeCheckAllModels: Bool = false, tags: [String]) async throws -> NoteID {
-        try await perform(AddNote.self, params: .init(deck: deck, model: model, fields: fields, options: .init(allowDuplicate: allowDuplicate, duplicateScope: duplicateScope, duplicateScopeOptions: .init(deckName: duplicateScopeDeckName, checkChildren: duplicateScopeCheckChildren, checkAllModels: duplicateScopeCheckAllModels)), tags: tags))
+        return try await perform(AddNote.self, params: .init(deck: deck, model: model, fields: fields, options: .init(allowDuplicate: allowDuplicate, duplicateScope: duplicateScope, duplicateScopeOptions: .init(deckName: duplicateScopeDeckName, checkChildren: duplicateScopeCheckChildren, checkAllModels: duplicateScopeCheckAllModels)), tags: tags))
     }
 }
