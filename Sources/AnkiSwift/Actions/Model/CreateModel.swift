@@ -1,3 +1,4 @@
+#if os(macOS)
 public struct CardTemplate: Encodable {
     let name: String
     let front: String
@@ -7,6 +8,12 @@ public struct CardTemplate: Encodable {
         self.name = name
         self.front = front
         self.back = back
+    }
+    
+    enum CodingKeys : String, CodingKey {
+        case name = "Name"
+        case front = "Front"
+        case back = "Back"
     }
 }
 
@@ -31,3 +38,4 @@ extension Anki {
         _ = try await perform(CreateModel.self, params: .init(modelName: modelName, inOrderFields: inOrderFields, css: css, isCloze: isCloze, cardTemplates: cardTemplates))
     }
 }
+#endif

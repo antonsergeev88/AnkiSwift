@@ -1,3 +1,4 @@
+#if os(macOS)
 enum SetSpecificValueOfCard: AnkiAction {
     static let name = "setSpecificValueOfCard"
     static let version = 6
@@ -17,3 +18,4 @@ extension Anki {
         try await perform(SetSpecificValueOfCard.self, params: .init(card: card, keys: values.map(\.key), newValues: values.map(\.value), warning_check: warningCheck))
     }
 }
+#endif

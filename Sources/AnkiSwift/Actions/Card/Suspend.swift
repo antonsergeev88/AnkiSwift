@@ -1,3 +1,4 @@
+#if os(macOS)
 enum Suspend: AnkiAction {
     static let name = "suspend"
     static let version = 6
@@ -14,3 +15,4 @@ extension Anki {
         try await perform(Suspend.self, params: .init(cards: cards))
     }
 }
+#endif

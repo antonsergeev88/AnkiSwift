@@ -1,3 +1,4 @@
+#if os(macOS)
 enum RemoveDeckConfigId: AnkiAction {
     static let name = "removeDeckConfigId"
     static let version = 6
@@ -15,3 +16,4 @@ extension Anki {
         try await perform(RemoveDeckConfigId.self, params: .init(configId: configId))
     }
 }
+#endif

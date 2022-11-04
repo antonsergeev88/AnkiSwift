@@ -1,3 +1,4 @@
+#if os(macOS)
 import Foundation
 
 public class DefaultAnkiNetworkClient: AnkiNetworkClient {
@@ -15,3 +16,4 @@ public class DefaultAnkiNetworkClient: AnkiNetworkClient {
         return try await urlSession.data(for: request).0
     }
 }
+#endif

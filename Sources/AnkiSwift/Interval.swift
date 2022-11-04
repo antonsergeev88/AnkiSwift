@@ -1,3 +1,4 @@
+#if os(macOS)
 public struct Interval: RawRepresentable, ExpressibleByIntegerLiteral, Equatable, Codable {
     public var rawValue: Int
 
@@ -17,3 +18,4 @@ public struct Interval: RawRepresentable, ExpressibleByIntegerLiteral, Equatable
         self.init(rawValue: value)
     }
 }
+#endif
