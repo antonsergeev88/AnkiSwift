@@ -1,3 +1,4 @@
+#if os(macOS)
 @frozen public enum CardValue {
     ///the epoch milliseconds of when the card was created
     case id(Int)
@@ -102,3 +103,4 @@ extension CardValue {
         }
     }
 }
+#endif

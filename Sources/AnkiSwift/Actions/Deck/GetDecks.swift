@@ -1,3 +1,4 @@
+#if os(macOS)
 enum GetDecks: AnkiAction {
     static let name = "getDecks"
     static let version = 6
@@ -14,3 +15,4 @@ extension Anki {
         try await perform(GetDecks.self, params: .init(cards: cards))
     }
 }
+#endif

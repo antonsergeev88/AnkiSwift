@@ -1,3 +1,4 @@
+#if os(macOS)
 import Foundation
 
 public class Anki {
@@ -11,3 +12,4 @@ public class Anki {
         try await networkClient.perform(Action.self, params: params)
     }
 }
+#endif

@@ -1,3 +1,4 @@
+#if os(macOS)
 enum GetIntervals {}
 
 extension GetIntervals {
@@ -38,3 +39,4 @@ extension Anki {
         try await perform(GetIntervals.Complete.self, params: .init(cards: cards))
     }
 }
+#endif

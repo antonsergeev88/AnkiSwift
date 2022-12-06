@@ -1,3 +1,4 @@
+#if os(macOS)
 import Foundation
 
 public protocol AnkiNetworkClient {
@@ -46,4 +47,4 @@ struct ActionResultEnvelop<Result: Decodable>: Decodable {
 struct ActionErrorEnvelop: Decodable {
     let error: String
 }
-
+#endif

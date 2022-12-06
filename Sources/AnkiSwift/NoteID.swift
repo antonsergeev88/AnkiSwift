@@ -1,3 +1,4 @@
+#if os(macOS)
 public struct NoteID: RawRepresentable, ExpressibleByIntegerLiteral, Equatable, Codable {
     public let rawValue: Int
 
@@ -9,3 +10,4 @@ public struct NoteID: RawRepresentable, ExpressibleByIntegerLiteral, Equatable, 
         self.init(rawValue: value)
     }
 }
+#endif
